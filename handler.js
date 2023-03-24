@@ -84,6 +84,7 @@ module.exports.getLongUrl = (event, context, callback) => {
         body: 'Failed to fetch long URL'
       });
     }
+    console.log(87, data)
 
     const { longUrl } = data.Item;
 
