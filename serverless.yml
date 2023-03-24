@@ -7,10 +7,7 @@ provider:
   runtime: nodejs16.x
   stage: main
   region: us-east-1
-  iamRoleS: /urls
-          method: post
-          cors: true
-  getLongUrl:tatements:
+  iamRoleStatements:
   - Effect: Allow
     Action:
       - dynamodb:DescribeTable
@@ -27,7 +24,10 @@ functions:
     handler: handler.createShortUrl
     events:
       - http:
-          path
+          path: /urls
+          method: post
+          cors: true
+  getLongUrl:
     handler: handler.getLongUrl
     events:
       - http:
