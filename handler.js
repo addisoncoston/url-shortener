@@ -53,9 +53,8 @@ module.exports.createShortUrl = (event, context, callback) => {
 
 module.exports.getLongUrl = (event, context, callback) => {
   console.log(55, JSON.stringify(event));
-  const reqBody = JSON.parse(event.body);
 
-  const { shortUrl } = event.pathParameters;
+  const shortUrl = event.pathParameters.shortUrl;
 
   if (typeof shortUrl !== 'string') {
     return callback(null, {
