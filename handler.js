@@ -3,7 +3,7 @@ const AWS = require('aws-sdk');
 const dynamoDB = new AWS.DynamoDB.DocumentClient();
 //
 module.exports.createShortUrl = (event, context, callback) => {
-  const reqBody = JSON.parse(event.body);
+  const reqBody = JSON.parse(event);
 
   const { longUrl, shortUrl } = reqBody;
 
