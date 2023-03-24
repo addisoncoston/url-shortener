@@ -1,0 +1,55 @@
+service: url-shortener
+app: url-shortener
+org: addisoncoston
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  stage: main
+  region: us-east-1
+  iamRoleS: /urls
+          method: post
+          cors: true
+  getLongUrl:tatements:
+  - Effect: Allow
+    Action:
+      - dynamodb:DescribeTable
+      - dynamodb:Query
+      - dynamodb:Scan
+      - dynamodb:GetItem
+      - dynamodb:PutItem
+      - dynamodb:UpdateItem
+      - dynamodb:DeleteItem
+    Resource: "arn:aws:dynamodb:*:*:table/urls"
+
+functions:
+  createShortUrl:
+    handler: handler.createShortUrl
+    events:
+      - http:
+          path
+    handler: handler.getLongUrl
+    events:
+      - http:
+          path: /urls/{shortUrl}
+          method: get
+          cors: true
+
+resources:
+  Resources:
+    UrlsDynamoDBTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: urls
+        AttributeDefinitions:
+          -
+            AttributeName: shortUrl
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: shortUrl
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
