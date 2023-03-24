@@ -55,7 +55,7 @@ module.exports.getLongUrl = (event, context, callback) => {
   console.log(55, JSON.stringify(event));
   const reqBody = JSON.parse(event.body);
 
-  const { shortUrl } = reqBody;
+  const { shortUrl } = event.pathParameters;
 
   if (typeof shortUrl !== 'string') {
     return callback(null, {
