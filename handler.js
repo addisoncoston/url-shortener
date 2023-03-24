@@ -73,6 +73,7 @@ module.exports.getLongUrl = (event, context, callback) => {
     }
   };
 
+ 
   return dynamoDB.get(urlParams, (error, data) => {
     if (error) {
       console.log(error);
@@ -84,20 +85,16 @@ module.exports.getLongUrl = (event, context, callback) => {
         body: 'Failed to fetch long URL'
       });
     }
-    console.log(87, data)
 
     const { longUrl } = data.Item;
 
     const response = {
-      statusCode: 200,
+      statusCode: 302,
       headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        message: `Fetched long URL for ${shortUrl}`,
-        longUrl
-      })
+        Location: longUrl
+      }
     };
     callback(null, response);
   });
 };
+  
